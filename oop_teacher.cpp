@@ -147,10 +147,41 @@ public:
 
     void Input();
     void Output();
+    void Sort();
 };
 
+void Faculty::Input()
+{
+    cout << "Input the faculty name: ";
+    getline(cin, Name);
+    cout << "Input the number of teachers in the faculty: ";
+    cin >> TeacherNumber;
 
+    if (tc) delete tc;
+    if (TeacherNumber)
+    {
+        cout << "Input teacher's info:" << endl;
+        tc = new Teacher[TeacherNumber];
+        for (int i = 0; i < TeacherNumber; ++i)
+        {
+            tc[i].Input();
+        }
+    }
+}
 
+void Faculty::Output()
+{
+    cout << "Faculty: " << Name << "--includes " << TeacherNumber << " teachers." << endl;
+    if (TeacherNumber)
+    {   
+        cout << "Teachers are listed below:" << endl;
+        for (int i = 0; i < TeacherNumber; ++i)
+        {
+            tc[i].Output();
+        }
+    }
+
+}
 
 int main()
 {
