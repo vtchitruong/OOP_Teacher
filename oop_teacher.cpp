@@ -128,11 +128,28 @@ public:
             }
         }
     }
-
-
-
-
 };
+
+//-------------------------------------------------------------------
+class Faculty
+{
+private:
+    string Name;
+    int TeacherNumber;
+    Teacher *tc;
+public:
+    Faculty()
+    {
+        Name = "";
+        TeacherNumber = 0;
+        tc = NULL;
+    }
+
+    void Input();
+    void Output();
+};
+
+
 
 
 int main()
