@@ -180,7 +180,11 @@ void Faculty::Output()
             tc[i].Output();
         }
     }
+}
 
+void Faculty::Sort()
+{
+    Teacher tmp;
 }
 
 int main()
