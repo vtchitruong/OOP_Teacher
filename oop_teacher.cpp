@@ -131,9 +131,140 @@ public:
             }
         }
     }
+
+    Teacher* getTeacher()
+    {
+        return this;
+    }
 };
 
+//-------------------------------------
+class Thesis
+{
+private:
+    string Name;
+    string StudentName;
+    int DefenseYear;
+
+public:
+    Thesis()
+    {
+        Name = "";
+        StudentName = "";
+        DefenseYear = 0;
+    }
+
+    const Thesis& operator=(const Thesis &t)
+    {
+        this->Name = t.Name;
+        this->StudentName = t.StudentName;
+        this->DefenseYear = t.DefenseYear;
+        return t;
+    }
+
+    void Input()
+    {
+        cout << "----Input thesis name: ";
+        fflush(stdin);
+        getline(cin, Name);
+
+        cout << "----Input student name: ";
+        fflush(stdin);
+        getline(cin, StudentName);
+
+        cout << "----Input defense year: ";
+        cin >> DefenseYear;
+    }
+
+    void Output()
+    {
+        cout << "----Thesis: " << Name << "--by student: " << StudentName << "--defensed in " << DefenseYear << endl;
+    }
+};
+
+
+
+//-------------------------------------------------------
+class Teacher2 : public Teacher
+{
+private:
+    int ThesisNumber; // number of thesis that the teacher can guide
+    Thesis *ts;
+public:
+    Teacher2() : Teacher()
+    {
+        ThesisNumber = 0;
+        ts = NULL;
+    }
+
+    ~Teacher2()
+    {
+        if (ThesisNumber) delete ts;
+    }
+
+    Teacher2& operator=(Teacher2& tc);
+    void Input();
+    void Output();
+};
+
+Teacher2& Teacher2::operator=(Teacher2& tc)
+{
+    Teacher *t1, *t2;
+    t1 = this->getTeacher();
+    t2 = tc.getTeacher();
+
+    *t1 = *t2;
+
+    int n = tc.ThesisNumber;
+    this->ThesisNumber = n;
+
+    if (this->ts) delete ts;
+    if (n)
+    {
+        this->ts = new Thesis[n];
+        for (int i = 0; i < n; ++i)
+        {
+            this->ts[i] = tc.ts[i];
+        }
+    }
+
+    return tc;
+}
+
+void Teacher2::Input()
+{
+    Teacher::Input();
+    cout << "Input the number of guiding thesis: ";
+    cin >> ThesisNumber;
+
+    if (this->ts) delete ts;
+    if (ThesisNumber)
+    {
+        this->ts = new Thesis[ThesisNumber];
+        for (int i = 0; i < ThesisNumber; ++i)
+        {
+            this->ts[i].Input();
+        }
+    }
+}
+
+void Teacher2::Output()
+{
+    Teacher::Output();
+    cout << "Number of guiding thesis: " << ThesisNumber << endl;\
+
+    if (ThesisNumber)
+    {
+        cout << "Those are:" << endl;
+        for (int i = 0; i < ThesisNumber; ++i)
+        {
+            this->ts[i].Output();
+        }
+    }
+}
+
 //-------------------------------------------------------------------
+#define Teacher Teacher2
 class Faculty
 {
 private:
@@ -206,7 +337,9 @@ void Faculty::Sort()
         }
     }
 }
+#undef Teacher
 
+//------------------------------------------------
 int main()
 {
     Faculty fc;
