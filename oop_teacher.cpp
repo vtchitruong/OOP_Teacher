@@ -29,6 +29,7 @@ public:
     void Input()
     {
         cout << "Input subject name: ";
+        fflush(stdin);
         getline(cin, Name);
 
         cout << "Input lesson number of the subject: ";
@@ -95,9 +96,11 @@ public:
     }
 
     void Input()
-    {
+    {        
         cout << "Input teacher's name: ";
-        getline(cin, Name);
+        fflush(stdin);
+        getline(cin, Name);        
+
         cout << "Input year of birth: ";
         cin >> BirthYear;
         cout << "Input number of subjects to be taken on: ";
@@ -120,7 +123,7 @@ public:
         cout << "Teacher's name: " << Name << "-- born in " << BirthYear << "-- can teach " << SubjectNumber << " subjects." << endl;
         if (SubjectNumber)
         {
-            cout << "--Those are: ";
+            cout << "--Those are: " << endl;
             for (int i = 0; i < SubjectNumber; ++i)
             {
                 cout << "----";
@@ -153,6 +156,7 @@ public:
 void Faculty::Input()
 {
     cout << "Input the faculty name: ";
+    fflush(stdin);
     getline(cin, Name);
     cout << "Input the number of teachers in the faculty: ";
     cin >> TeacherNumber;
@@ -205,7 +209,12 @@ void Faculty::Sort()
 
 int main()
 {
-    
+    Faculty fc;
+
+    fc.Input();
+    fc.Sort();
+    fc.Output(); 
+
 
     return 0;
 }
