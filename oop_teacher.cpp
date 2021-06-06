@@ -147,7 +147,7 @@ public:
 
     void Input();
     void Output();
-    void Sort();
+    void Sort(); // Sort teachers by their number of subjects
 };
 
 void Faculty::Input()
@@ -182,9 +182,25 @@ void Faculty::Output()
     }
 }
 
+// Sort teachers by their number of subjects
 void Faculty::Sort()
 {
     Teacher tmp;
+    if (TeacherNumber)
+    {
+        for (int i = 0; i < TeacherNumber - 1; ++i)
+        {
+            for (int j = i + 1; j < TeacherNumber; ++j)
+            {
+                if (tc[i].getSubjectNumber() < tc[j].getSubjectNumber())
+                {
+                    tmp = tc[i];
+                    tc[i] = tc[j];
+                    tc[j] = tmp;
+                }
+            }
+        }
+    }
 }
 
 int main()
